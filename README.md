@@ -7,7 +7,7 @@ A sample CLI tool created using Node.js and `commander`.
 To use this CLI tool, you don't need to install it globally. Simply run it using `npx`:
 
 ```bash
-npx my-npx-command
+npx @atman-33/my-npx-command
 ```
 
 Alternatively, you can install it locally or globally:
@@ -15,25 +15,25 @@ Alternatively, you can install it locally or globally:
 ### Local Installation
 
 ```bash
-npm install my-npx-command
+npm install @atman-33/my-npx-command
 ```
 
 Run the command:
 
 ```bash
-npx my-npx-command
+npx @atman-33/my-npx-command
 ```
 
 ### Global Installation
 
 ```bash
-npm install -g my-npx-command
+npm install -g @atman-33/my-npx-command
 ```
 
 Run the command:
 
 ```bash
-my-npx-command
+@atman-33/my-npx-command
 ```
 
 ---
@@ -43,13 +43,13 @@ my-npx-command
 ### Display Help
 
 ```bash
-npx my-npx-command --help
+npx @atman-33/my-npx-command --help
 ```
 
 Example output:
 
 ```sh
-Usage: my-npx-command [options]
+Usage: @atman-33/my-npx-command [options]
 
 sample npx command
 
@@ -61,7 +61,7 @@ Options:
 ### Display Version
 
 ```bash
-npx my-npx-command --version
+npx @atman-33/my-npx-command --version
 ```
 
 ---
@@ -78,13 +78,13 @@ This CLI tool currently supports the following commands:
 #### Initialize a project
 
 ```bash
-npx my-npx-command init
+npx @atman-33/my-npx-command init
 ```
 
 #### Display a greeting
 
 ```bash
-npx my-npx-command hello
+npx @atman-33/my-npx-command hello
 ```
 
 ---
