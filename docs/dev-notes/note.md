@@ -185,7 +185,90 @@ mkdir src
       |
       +- commands/
          |
-         +- index.ts
          +- init.ts   # npxコマンド init の処理部分
          +- hello.ts  # npxコマンド hello の処理部分
+```
+
+#### commanderをインストール
+
+Node.js 用コマンドラインインターフェース (CLI) ツールを構築するためのパッケージである`commander`をインストールします。
+
+```sh
+npm i commander
+```
+
+#### `src/index.ts`の作成
+
+まず、CLI のエントリーポイントとなる`src/index.ts`を作成します。このファイルでは commander を使い、サブコマンドの登録を行います。
+
+```ts:src/index.ts
+#!/usr/bin/env node
+// ↑CLIツールとして実行するために必要
+
+import { Command } from 'commander';
+import { helloCommand } from './modules/commands/hello';
+import { initCommand } from './modules/commands/init';
+
+const program = new Command();
+
+program
+  .name('my-npx-command') // CLIツールの名前
+  .description('sample npx command')
+  .version('0.1.0');
+
+// 各サブコマンドを登録
+program.addCommand(initCommand);
+program.addCommand(helloCommand);
+
+// コマンドを実行
+program.parse(process.argv);
+```
+
+#### `src/modules/commands/init.ts`の作成
+
+```ts
+import { Command } from 'commander';
+import fs from 'fs';
+import path from 'path';
+
+const defaultConfig = {
+  name: 'npx',
+};
+
+export type Config = typeof defaultConfig;
+
+export const initCommand = new Command('init')
+  .description('Initialize my-npx-config.json')
+  .action(() => {
+    const filePath = path.resolve(process.cwd(), 'my-npx-config.json');
+
+    if (fs.existsSync(filePath)) {
+      console.error('forge.json already exists.');
+      process.exit(1);
+    }
+
+    fs.writeFileSync(filePath, JSON.stringify(defaultConfig, null, 2), 'utf-8');
+    console.log('my-npx-config.json has been created successfully.');
+  });
+```
+
+#### `src/modules/commands/hello.ts`の作成
+
+```ts
+import { Command } from 'commander';
+import fs from 'fs';
+import path from 'path';
+import { Config } from './init';
+
+export const helloCommand = new Command('hello').description('Say hello to someone.').action(() => {
+  const filePath = path.resolve(process.cwd(), 'my-npx-config.json');
+
+  if (!fs.existsSync(filePath)) {
+    console.error(`Configuration file not found at ${filePath}`);
+    process.exit(1);
+  }
+
+  const config: Config = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  console.log(`Hello, ${config.name}!`);
+});
 ```
