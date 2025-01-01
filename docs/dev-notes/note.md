@@ -226,7 +226,9 @@ program.parse(process.argv);
 
 #### `src/modules/commands/init.ts`の作成
 
-```ts
+`init`コマンドでは、専用のconfigファイルを生成します。
+
+```ts:src/modules/commands/init.ts
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
@@ -254,7 +256,9 @@ export const initCommand = new Command('init')
 
 #### `src/modules/commands/hello.ts`の作成
 
-```ts
+`hello`コマンドでは、configファイルに設定された`name`に対して、helloと呼びかけます。
+
+```ts:src/modules/commands/hello.ts
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
@@ -272,3 +276,85 @@ export const helloCommand = new Command('hello').description('Say hello to someo
   console.log(`Hello, ${config.name}!`);
 });
 ```
+
+### 3. コマンドの動作確認
+
+#### `package.json`の修正
+
+`package.json`を修正して、動作確認用のスクリプトを追加します。
+
+```json:package.json
+{
+  "name": "@atman/my-npx-command",
+  "version": "0.1.0",
+  "description": "sample npx command",
+-  "main": "index.js",  // 不要なため削除
+  // ...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
++    "build": "tsc",
++   　"start": "node dist/index.js",
++   　"--- COMMAND SECTION ---": "---",
++   　"init": "npm run build && npm run start init",
++   　"hello": "npm run build && npm run start hello"
+  },
+  // ...
+}
+```
+
+#### ビルドと実行
+
+以下のコマンドで、CLIの動作を確認します。
+
+```sh
+# initコマンドをテスト
+npm run init
+
+# helloコマンドをテスト
+npm run hello
+```
+
+期待通りの出力がされていれば成功です。
+
+また、gitを利用している場合は、`dis`を含まないように`.gitignore`を修正しておきます。
+
+```sh:.gitignore
+/node_modules
+/dist
+```
+
+### 4. npxコマンドの適用
+
+#### `package.json`の`bin`設定
+
+`npx` コマンドとして使用するには、`package.json` にエントリを追加します。
+
+```json:package.json
+{
+  "bin": {
+    "my-npx-command": "./dist/index.js"
+  }
+}
+```
+
+これにより、`my-npx-command` コマンドがグローバルに利用可能になります。
+
+#### ローカルでnpx動作確認
+
+次に、ローカルで `npx` 経由で CLI をテストするために、リンクを作成します。
+
+```sh
+npm link
+```
+
+以下のようにコマンドを実行して動作を確認してください。
+
+```sh
+# initコマンド
+npx my-npx-command init
+
+# helloコマンド
+npx my-npx-command hello Alice
+```
+
+ビルドと実行と同様の動作となれば成功です。

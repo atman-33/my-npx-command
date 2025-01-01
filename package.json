@@ -2,12 +2,19 @@
   "name": "@atman/my-npx-command",
   "version": "0.1.0",
   "description": "sample npx command",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
+  "bin": {
+    "my-npx-command": "dist/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "--- COMMAND SECTION ---": "---",
+    "init": "npm run build && npm run start init",
+    "hello": "npm run build && npm run start hello"
   },
   "author": "atman",
   "license": "MIT",

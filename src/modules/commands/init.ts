@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 const defaultConfig = {
-  name: 'npx',
+  name: 'hoge',
 };
 
 export type Config = typeof defaultConfig;
