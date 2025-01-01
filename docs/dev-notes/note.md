@@ -74,8 +74,8 @@ entry point: (index.js)  # 不要なため後で削除
 test command: 
 git repository: 
 keywords: 
-author: atman
-license: (ISC) MIT # 仮でMIT
+author: atman-33
+license: (ISC) MIT # 今回はMITを設定
 About to write to /home/atman/sites/my-npx-command/package.json:
 
 {
@@ -89,7 +89,7 @@ About to write to /home/atman/sites/my-npx-command/package.json:
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "atman",
+  "author": "atman-33",
   "license": "MIT"
 }
 
@@ -449,11 +449,7 @@ access=public
 追加した設定の`files`に含まれる、フォルダもしくはファイルがnpmに公開されます。  
 TypeScriptの場合、バンドルされた`dist`フォルダは公開に必要ですが、`src`は利用者には不要なため含めないのが基本です。  
 
-また、必要に応じてLICENSE（GitHubからテンプレートをベースに追加可能）、README.mdファイルを追加してください。
-
-:::message
-README.mdが、公開したnpmパッケージのトップに表示されるため準備しておくことを推奨します。
-:::
+また、必要に応じてLICENSE（GitHubからテンプレートをベースに追加可能）、README.mdファイルを追加してください。README.mdは、公開したnpmパッケージのトップに表示されるため、作成しておくことを推奨します。
 
 ### 4. npm公開
 
