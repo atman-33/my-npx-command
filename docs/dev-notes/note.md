@@ -2,7 +2,7 @@
 
 ## はじめに
 
-`npx` コマンドを使うと、ローカルにインストールしなくても npm パッケージを実行できます。本記事では、自作の npx コマンドを TypeScript で作成し、それを `@atman` スコープで npm に公開する方法を解説します。これにより、他のユーザーは `npx @atman/my-npx-command` として簡単にコマンドを実行できるようになります。
+`npx` コマンドを使うと、ローカルにインストールしなくても npm パッケージを実行できます。本記事では、自作の npx コマンドを TypeScript で作成し、それを `@atman-33` スコープで npm に公開する方法を解説します。これにより、他のユーザーは `npx @atman-33/my-npx-command` として簡単にコマンドを実行できるようになります。
 
 :::message
 atmanは例ですので、実際にパッケージを自作する場合は、任意のスコープ名に変更してください。
@@ -13,16 +13,16 @@ atmanは例ですので、実際にパッケージを自作する場合は、任
 npm パッケージにスコープを使用することで、いくつかのメリットがあります。
 
 1. **名前の衝突を避ける**  
-    スコープを使うことで、同じ名前のパッケージが他のパブリックパッケージと衝突するのを防ぐことができます。例えば、`@atman/my-npx-command` は他のパッケージ名と重なることがありません。
+    スコープを使うことで、同じ名前のパッケージが他のパブリックパッケージと衝突するのを防ぐことができます。例えば、`@atman-33/my-npx-command` は他のパッケージ名と重なることがありません。
 
 2. **パッケージの管理が容易**  
-    スコープは、関連するパッケージをグループ化するために便利です。例えば、`@atman` スコープ内で関連するツールやコマンドをまとめることができ、後から管理しやすくなります。
+    スコープは、関連するパッケージをグループ化するために便利です。例えば、`@atman-33` スコープ内で関連するツールやコマンドをまとめることができ、後から管理しやすくなります。
 
 3. **公開設定の柔軟性**  
     スコープ付きパッケージはデフォルトでプライベートになりますが、`--access public` オプションを使うことで、簡単にパブリックに公開できます。これにより、公開の際にアクセス管理がしやすくなります。
 
 4. **チームや組織向けのパッケージ管理**  
-    スコープは、チームや組織専用のパッケージを公開するための名前空間として使用できます。例えば、`@atman` スコープ内のパッケージは、`atman` というチームまたは組織に関連していることが明確になります。
+    スコープは、チームや組織専用のパッケージを公開するための名前空間として使用できます。例えば、`@atman-33` スコープ内のパッケージは、`atman-33` というチームまたは組織に関連していることが明確になります。
 
 :::
 
@@ -38,7 +38,7 @@ npm パッケージにスコープを使用することで、いくつかのメ�
 ```sh
 mkdir my-npx-command
 cd my-npx-command
-npm init --scope=atman
+npm init --scope=atman-33
 
 # npm init コマンド実行時の設定
 This utility will walk you through creating a package.json file.
@@ -51,7 +51,7 @@ Use `npm install <pkg>` afterwards to install a package and
 save it as a dependency in the package.json file.
 
 Press ^C at any time to quit.
-package name: (@atman/my-npx-command) 
+package name: (@atman-33/my-npx-command) 
 version: (1.0.0) 0.1.0 # セマンティックバージョニングのルールに従って0.1.0から始めることを推奨
 description: sample npx command
 entry point: (index.js)  # 不要なため後で削除
@@ -63,7 +63,7 @@ license: (ISC) MIT # 仮でMIT
 About to write to /home/atman/sites/my-npx-command/package.json:
 
 {
-  "name": "@atman/my-npx-command",
+  "name": "@atman-33/my-npx-command",
   "version": "0.1.0",
   "description": "sample npx command",
   "main": "index.js",
@@ -234,7 +234,7 @@ import fs from 'fs';
 import path from 'path';
 
 const defaultConfig = {
-  name: 'npx',
+  name: 'hoge',
 };
 
 export type Config = typeof defaultConfig;
@@ -245,7 +245,7 @@ export const initCommand = new Command('init')
     const filePath = path.resolve(process.cwd(), 'my-npx-config.json');
 
     if (fs.existsSync(filePath)) {
-      console.error('forge.json already exists.');
+      console.error('my-npx-config.json already exists.');
       process.exit(1);
     }
 
@@ -285,7 +285,7 @@ export const helloCommand = new Command('hello').description('Say hello to someo
 
 ```json:package.json
 {
-  "name": "@atman/my-npx-command",
+  "name": "@atman-33/my-npx-command",
   "version": "0.1.0",
   "description": "sample npx command",
 -  "main": "index.js",  // 不要なため削除
@@ -351,10 +351,10 @@ npm link
 
 ```sh
 # initコマンド
-npx my-npx-command init
+npx @atman-33/my-npx-command init
 
 # helloコマンド
-npx my-npx-command hello Alice
+npx @atman-33/my-npx-command hello
 ```
 
 ビルドと実行と同様の動作となれば成功です。
@@ -400,13 +400,13 @@ access=public
 
 ```json:package.json
 {
-  "name": "@atman/my-npx-command",
+  "name": "@atman-33/my-npx-command",
   "version": "0.1.0",
   "description": "sample npx command",
   "directories": {
     "doc": "docs"
   },
-  "author": "atman",
+  "author": "atman-33",
   "license": "MIT",
   "keywords": [
     "npx",
@@ -432,3 +432,54 @@ access=public
   }
 }
 ```
+
+追加した設定の`files`に含まれる、フォルダもしくはファイルがnpmに公開されます。  
+TypeScriptの場合、バンドルされた`dist`フォルダは公開に必要ですが、`src`は利用者には不要なため含めないのが基本です。  
+
+また、必要に応じてLICENSE（GitHubからテンプレートをベースに追加可能）、README.mdファイルを追加してください。
+
+:::message
+README.mdの内容が、npm公開したパッケージのURLページに表示されるため準備しておくことを推奨します。
+:::
+
+### 4. npm公開
+
+下記のコマンドで公開します。
+
+```sh
+npm publish
+```
+
+もしセッションが切れている場合は、`npm login`でログインしてから公開してください。
+
+:::message
+npm公開後、npmパッケージのREADMEが更新されるまで時間が掛かることがあります。  
+1日程かかる場合もありますので、翌日に更新されているか確認すればOKです。
+:::
+
+### 5. 公開済みパッケージ更新
+
+新しいバージョンを公開するには、バージョン番号を変更する必要があります。
+
+**バージョンを更新**  
+npm には自動でバージョンを更新するコマンドがあります。
+
+```sh
+npm version [update_type]
+[update_type] の値には以下を指定します：
+
+patch: 小さなバグ修正（例: 1.0.0 → 1.0.1）
+minor: 後方互換性のある新機能追加（例: 1.0.0 → 1.1.0）
+major: 後方互換性のない変更（例: 1.0.0 → 2.0.0）
+```
+
+:::message
+version更新時は、gitコミットされるためご注意ください。
+:::
+
+## おわりに
+
+以上の手順で、自作の`npx`コマンドを`@atman-33`スコープで作成し、`npm`に公開することができました。  
+公開後も更新や機能追加を行う際は、`npm version`コマンドでバージョンを更新し、再度 `npm publish` してください。
+
+この記事を参考に、ぜひ便利なコマンドを作ってみてください！

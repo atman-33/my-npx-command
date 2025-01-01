@@ -1,11 +1,11 @@
 {
-  "name": "@atman/my-npx-command",
-  "version": "0.1.0",
+  "name": "@atman-33/my-npx-command",
+  "version": "0.1.1",
   "description": "sample npx command",
   "directories": {
     "doc": "docs"
   },
-  "author": "atman",
+  "author": "atman-33",
   "license": "MIT",
   "keywords": [
     "npx",
