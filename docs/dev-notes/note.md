@@ -26,7 +26,7 @@ npm パッケージにスコープを使用することで、いくつかのメ�
 
 :::
 
-## ステップ
+## npxコマンド作成
 
 ### 1. プロジェクトの作成
 
@@ -358,3 +358,77 @@ npx my-npx-command hello Alice
 ```
 
 ビルドと実行と同様の動作となれば成功です。
+
+## npm公開
+
+### 1. npmアカウント作成（ログイン）
+
+npmアカウントは、CLIで作成します。
+
+```sh
+npm adduser
+```
+
+上記のコマンド実行後、指示に従ってブラウザ上でアカウント登録を進めます。  
+既にアカウント作成済みの場合は、`npm login`でログインします。
+
+### 2. `.npmrc`の設定
+
+自作パッケージを誰でも扱えるように、`.npmrc`ファイルを作成し、スコープを設定します。
+
+```sh:.npmrc
+access=public
+```
+
+### 3. npm公開用に`package.json`を修正
+
+`package.json`に、npm公開用の設定を追加します。
+
+**最低限、必要な設定項目**
+
+- name
+- version
+- description
+- author
+- license
+- keywords
+- repository
+- homepage
+- bin
+- types
+- files
+
+```json:package.json
+{
+  "name": "@atman/my-npx-command",
+  "version": "0.1.0",
+  "description": "sample npx command",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "atman",
+  "license": "MIT",
+  "keywords": [
+    "npx",
+    "command"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atman-33/my-npx-command.git"
+  },
+  "homepage": "https://github.com/atman-33/my-npx-command",
+  "bin": {
+    "my-npx-command": "dist/index.js"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
+  "scripts": {
+   // ...
+  }
+}
+```

@@ -5,9 +5,27 @@
   "directories": {
     "doc": "docs"
   },
+  "author": "atman",
+  "license": "MIT",
+  "keywords": [
+    "npx",
+    "command"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atman-33/my-npx-command.git"
+  },
+  "homepage": "https://github.com/atman-33/my-npx-command",
   "bin": {
     "my-npx-command": "dist/index.js"
   },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -16,8 +34,6 @@
     "init": "npm run build && npm run start init",
     "hello": "npm run build && npm run start hello"
   },
-  "author": "atman",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
