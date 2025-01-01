@@ -14,7 +14,7 @@ export const initCommand = new Command('init')
     const filePath = path.resolve(process.cwd(), 'my-npx-config.json');
 
     if (fs.existsSync(filePath)) {
-      console.error('forge.json already exists.');
+      console.error('my-npx-config.json already exists.');
       process.exit(1);
     }
 
