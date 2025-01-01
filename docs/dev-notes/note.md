@@ -5,7 +5,7 @@
 `npx` コマンドを使うと、ローカルにインストールしなくても npm パッケージを実行できます。本記事では、自作の npx コマンドを TypeScript で作成し、それを `@atman-33` スコープで npm に公開する方法を解説します。これにより、他のユーザーは `npx @atman-33/my-npx-command` として簡単にコマンドを実行できるようになります。
 
 :::message
-atmanは例ですので、実際にパッケージを自作する場合は、任意のスコープ名に変更してください。
+atman-33は私のnpmアカウント名ですので、実際にパッケージを自作する場合は、各々のnpmアカウント名に合わせて変更する必要があります。スコープを設定しなくてもパッケージは作成できますので、必要に応じて使い分けてください。
 :::
 
 :::details スコープを使うメリット
@@ -26,19 +26,35 @@ npm パッケージにスコープを使用することで、いくつかのメ�
 
 :::
 
+**本記事用に作成したサンプルパッケージ**
+
+<https://www.npmjs.com/package/@atman-33/my-npx-command>
+
+<https://github.com/atman-33/my-npx-command>
+
 ## npxコマンド作成
 
-### 1. プロジェクトの作成
+### 1. npmアカウント作成
+
+npmアカウントは、CLIで作成します。
+
+```sh
+npm adduser
+```
+
+上記のコマンド実行後、指示に従ってブラウザ上でアカウント登録を進めます。  
+
+### 2. プロジェクトの作成
 
 #### プロジェクトの初期化
 
 まず、新しいディレクトリを作成し、`npm init`を実行します。  
-今回はスコープ付き
+今回はスコープ付きとしています。
 
 ```sh
 mkdir my-npx-command
 cd my-npx-command
-npm init --scope=atman-33
+npm init --scope=atman-33 # 作成したnpmアカウント名と合わせること！
 
 # npm init コマンド実行時の設定
 This utility will walk you through creating a package.json file.
@@ -166,7 +182,7 @@ gitを利用している場合は、`node_modules`を含まないように`.giti
 
 :::
 
-### 2. コマンドの実装
+### 3. コマンドの実装
 
 `src` ディレクトリを作成し、その中に実行したいコードを記述します。
 
@@ -277,26 +293,26 @@ export const helloCommand = new Command('hello').description('Say hello to someo
 });
 ```
 
-### 3. コマンドの動作確認
+### 4. コマンドの動作確認
 
 #### `package.json`の修正
 
 `package.json`を修正して、動作確認用のスクリプトを追加します。
 
-```json:package.json
+```diff json:package.json
 {
   "name": "@atman-33/my-npx-command",
   "version": "0.1.0",
   "description": "sample npx command",
--  "main": "index.js",  // 不要なため削除
+- "main": "index.js",  // 不要なため削除
   // ...
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-+    "build": "tsc",
-+   　"start": "node dist/index.js",
-+   　"--- COMMAND SECTION ---": "---",
-+   　"init": "npm run build && npm run start init",
-+   　"hello": "npm run build && npm run start hello"
++   "build": "tsc",
++   "start": "node dist/index.js",
++   "--- COMMAND SECTION ---": "---",
++   "init": "npm run build && npm run start init",
++   "hello": "npm run build && npm run start hello"
   },
   // ...
 }
@@ -323,7 +339,7 @@ npm run hello
 /dist
 ```
 
-### 4. npxコマンドの適用
+### 5. npxコマンドの適用
 
 #### `package.json`の`bin`設定
 
@@ -357,20 +373,17 @@ npx @atman-33/my-npx-command init
 npx @atman-33/my-npx-command hello
 ```
 
-ビルドと実行と同様の動作となれば成功です。
+ビルドして実行した時と同様の動作となれば成功です。
 
 ## npm公開
 
-### 1. npmアカウント作成（ログイン）
+### 1. npmアカウントログイン
 
-npmアカウントは、CLIで作成します。
+npmログインは、CLIで実行します。
 
 ```sh
-npm adduser
+npm login
 ```
-
-上記のコマンド実行後、指示に従ってブラウザ上でアカウント登録を進めます。  
-既にアカウント作成済みの場合は、`npm login`でログインします。
 
 ### 2. `.npmrc`の設定
 
@@ -384,7 +397,7 @@ access=public
 
 `package.json`に、npm公開用の設定を追加します。
 
-**最低限、必要な設定項目**
+**設定しておくべき項目**
 
 - name
 - version
@@ -449,8 +462,6 @@ README.mdの内容が、npm公開したパッケージのURLページに表示�
 ```sh
 npm publish
 ```
-
-もしセッションが切れている場合は、`npm login`でログインしてから公開してください。
 
 :::message
 npm公開後、npmパッケージのREADMEが更新されるまで時間が掛かることがあります。  
