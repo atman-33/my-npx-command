@@ -1,6 +1,6 @@
 {
   "name": "@atman-33/my-npx-command",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "sample npx command",
   "directories": {
     "doc": "docs"
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/atman-33/my-npx-command",
   "bin": {
-    "my-npx-command": "dist/index.js"
+    "@atman-33/my-npx-command": "dist/index.js"
   },
   "types": "dist/index.d.ts",
   "files": [

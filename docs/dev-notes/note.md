@@ -332,7 +332,7 @@ npm run hello
 
 期待通りの出力がされていれば成功です。
 
-また、gitを利用している場合は、`dis`を含まないように`.gitignore`を修正しておきます。
+また、gitを利用している場合は、`dist`を含まないように`.gitignore`を修正しておきます。
 
 ```sh:.gitignore
 /node_modules
@@ -348,7 +348,7 @@ npm run hello
 ```json:package.json
 {
   "bin": {
-    "my-npx-command": "./dist/index.js"
+    "@atman-33/my-npx-command": "dist/index.js"
   }
 }
 ```
@@ -431,7 +431,7 @@ access=public
   },
   "homepage": "https://github.com/atman-33/my-npx-command",
   "bin": {
-    "my-npx-command": "dist/index.js"
+    "@atman-33/my-npx-command": "dist/index.js"
   },
   "types": "dist/index.d.ts",
   "files": [
