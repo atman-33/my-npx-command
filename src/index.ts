@@ -10,7 +10,7 @@ const program = new Command();
 program
   .name('my-npx-command') // CLIツールの名前
   .description('sample npx command')
-  .version('0.1.3');
+  .version('0.1.4');
 
 // 各サブコマンドを登録
 program.addCommand(initCommand);
