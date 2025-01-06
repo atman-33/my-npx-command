@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/atman-33/my-npx-command",
   "bin": {
-    "@atman-33/my-npx-command": "dist/index.js"
+    "my-npx-command": "dist/index.js"
   },
   "types": "dist/index.d.ts",
   "files": [
