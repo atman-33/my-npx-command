@@ -1,6 +1,6 @@
 {
   "name": "@atman-33/my-npx-command",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "sample npx command",
   "directories": {
     "doc": "docs"
