@@ -2,7 +2,7 @@
 
 ## はじめに
 
-`npx` コマンドを使うと、ローカルにインストールしなくても npm パッケージを実行できます。本記事では、自作の npx コマンドを TypeScript で作成し、それを `@atman-33` スコープで npm に公開する方法を解説します。これにより、他のユーザーは `npx @atman-33/my-npx-command` として簡単にコマンドを実行できるようになります。
+`npx` コマンドを使うと、ローカルにインストールしなくても npm パッケージを実行できます。本記事では、自作の npx コマンドを TypeScript で作成し、それを `@atman-33` スコープで npm に公開する方法を解説します。これにより、他のユーザーは `npx my-npx-command` or `@atman-33/my-npx-command` として簡単にコマンドを実行できるようになります。
 
 :::message
 atman-33は私のnpmアカウント名ですので、実際にパッケージを自作する場合は、各々のnpmアカウント名に合わせて変更する必要があります。スコープを設定しなくてもパッケージは作成できますので、必要に応じて使い分けてください。
@@ -344,7 +344,7 @@ npm run hello
 #### `package.json`の`bin`設定
 
 `npx` コマンドとして使用するには、`package.json` にエントリを追加します。  
-通常、コマンドはシンプルな形式を推奨しておりスコープを含めません。
+このコマンドは、通常シンプルな形式が推奨されておりスコープ名は不要です。
 
 ```json:package.json
 {
@@ -368,10 +368,10 @@ npm link
 
 ```sh
 # initコマンド
-npx @atman-33/my-npx-command init
+npx my-npx-command init
 
 # helloコマンド
-npx @atman-33/my-npx-command hello
+npx my-npx-command hello
 ```
 
 ビルドして実行した時と同様の動作となれば成功です。
@@ -457,7 +457,7 @@ TypeScriptの場合、バンドルされた`dist`フォルダは公開に必要�
 下記のコマンドで公開します。
 
 ```sh
-npm run build # 公開するのはdistフォルダ内のためビルドしておく！
+npm run build # 公開するのはdistフォルダ内のためソース変更時はビルド必要！
 npm publish
 ```
 
@@ -486,7 +486,7 @@ major: 後方互換性のない変更（例: 1.0.0 → 2.0.0）
 version更新時は、gitコミットされるためご注意ください。
 :::
 
-後は、通常の公開と同様にビルドしてから`npm publish`を行ってください。
+後は、先に説明した方法と同様にビルドしてから`npm publish`を行ってください。
 
 ## おわりに
 
